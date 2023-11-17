@@ -1,7 +1,15 @@
 class BeverageShop:
-  def __init__(self):
-        # Input from txt file "Bev Shop", bottom methods was originally based on hardcoded menu
-        # We will have the txt file updated soon
+    def __init__(self):
+      self.menu = {
+          'Coffee': {'Small': 2.50, 'Medium': 3.00, 'Large': 3.50},
+          'Tea': {'Small': 2.00, 'Medium': 2.50, 'Large': 3.00},
+          'Smoothie': {'Small': 4.00, 'Medium': 4.50, 'Large': 5.00},
+          'Beer': {'Small': 5.00, 'Medium': 6.00, 'Large': 7.00},
+          'Wine': {'Small': 6.00, 'Medium': 7.00, 'Large': 8.00}
+      }
+      self.order = []
+      # Input from txt file "Bev Shop", bottom methods was originally based on hardcoded menu
+      # We will have the txt file updated soon
 
     def display_menu(self):
         # Display the menu of the beverage shop
