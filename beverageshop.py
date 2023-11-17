@@ -1,6 +1,7 @@
 class BeverageShop:
   def __init__(self):
         # Input from txt file "Bev Shop", bottom methods was originally based on hardcoded menu
+        # We will have the txt file updated soon
 
     def display_menu(self):
         # Display the menu of the beverage shop
