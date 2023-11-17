@@ -19,3 +19,30 @@ class BeverageShop:
         except ValueError:
             print("Invalid input. Please enter a valid age.")
             return self.get_customer_age()
+
+
+    def place_order(self):
+        self.display_menu()
+        while True:
+            beverage = input("\nEnter the name of the beverage you'd like to order (or 'done' to finish): ").capitalize()
+            if beverage == 'Done':
+                break
+            elif beverage in self.menu:
+                size = input("Select size (Small, Medium, Large): ").capitalize()
+                if size not in self.menu[beverage]:
+                    print("Invalid size. Please choose a valid size.")
+                    continue
+                quantity = int(input("Enter quantity: "))
+                self.order.append({'beverage': beverage, 'size': size, 'quantity': quantity})
+            else:
+                print("Invalid beverage. Please choose a beverage from the menu.")
+
+    def calculate_total(self):
+        total_cost = 0.0
+        for item in self.order:
+            beverage = item['beverage']
+            size = item['size']
+            quantity = item['quantity']
+            price = self.menu[beverage][size]
+            total_cost += price * quantity
+        return total_cost
