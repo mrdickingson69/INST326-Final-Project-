@@ -3,6 +3,15 @@ class BeverageShop:
       self.menu = self.load_menu()
       self.order = []
 
+    def load_menu(self):
+    # I added this menu to load the beverage_menu.txt file
+    menu = {}
+    with open("beverage_menu.txt", "r") as file:
+        for line in file:
+            name, size, price = line.strip().split(",")
+            menu[name] = {"size": size, "price": float(price)}
+    return menu
+
     def display_menu(self):
         # Display the menu of the beverage shop
         print("==== Beverage Menu ====")
