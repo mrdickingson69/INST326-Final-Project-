@@ -1,4 +1,11 @@
 class BeverageShop:
+    """
+    A program representing a beverage shop menu.
+
+    Attributes:
+    - menu (dict): A dictionary representing the beverage menu with items, sizes, and prices.
+    - order (list): A list to store the customer's order.
+    """
     def __init__(self, menu_file="beverage_menu.txt"):
         """
         Initializes the BeverageShop instance.
@@ -9,23 +16,39 @@ class BeverageShop:
         self.menu = self.load_menu(menu_file)
         self.order = []
 
-    def load_menu(self):
-    # I added this menu to load the beverage_menu.txt file
-    menu = {}
-    with open("beverage_menu.txt", "r") as file:
-        for line in file:
-            name, size, price = line.strip().split(",")
-            menu[name] = {"size": size, "price": float(price)}
-    return menu
+    def load_menu(self, menu_file):
+        """
+        Loads the beverage menu from a text file.
+
+        Parameters:
+        - menu_file (str): The file path to the menu txt file.
+
+        Returns:
+        - dict: A dictionary representing the beverage menu.
+        """
+        menu = {}
+        with open(menu_file, "r") as file:
+            for line in file:
+                values = line.strip().split(", ")
+                name = values[0]
+                sizes_prices = values[1:]
+                menu[name] = {}
+                for i in range(0, len(sizes_prices), 2):
+                    size = sizes_prices[i]
+                    price = float(sizes_prices[i + 1])
+                    menu[name][size] = price
+            return menu
 
     def display_menu(self):
-        # Display the menu of the beverage shop
-        print("==== Beverage Menu ====")
-        for category, sizes in self.menu.items():
-            print(f"\n{category}:")
-            for size, price in sizes.items():
-                print(f"  {size}: ${price:.2f}")
-
+        """
+        Displays the beverage menu to the customer.
+        """
+        print("\nBeverage Menu:\n")
+        for item, sizes_prices in self.menu.items():
+            print(f"{item}:")
+            for size, price in sizes_prices.items():
+                print(f"  Size: {size}, Price: ${price}")
+    
     def place_order(self):
         """
         Allows the customer to place an order by selecting items from the menu.
@@ -74,27 +97,26 @@ class BeverageShop:
         return total_cost
 
     def display_order_summary(self):
-            """
-            Displays the order summary to the customer.
-            """
-            print("\nOrder Summary:\n")
-            for item in self.order:
-                print(f"{item['quantity']} {item['size']} {item['item']}")
+        """
+        Displays the order summary to the customer.
+        """
+        print("\nOrder Summary:\n")
+        for item in self.order:
+            print(f"{item['quantity']} {item['size']} {item['item']}")
+            
+        total_cost = self.calculate_total()
+        print(f"\nTotal Cost: ${total_cost:.2f}")
     
-            total_cost = self.calculate_total()
-            print(f"\nTotal Cost: ${total_cost:.2f}")
+    def run(self):
+        """
+        Executes the beverage shop application.
+        """
+        print("Welcome to the Beverage Shop!")
+        self.display_menu()
+        self.place_order()
+        self.display_order_summary()
+        print("\nThank you for your order!")
     
-        def run(self):
-            """
-            Executes the beverage shop application.
-            """
-            print("Welcome to the Beverage Shop!")
-            self.display_menu()
-            self.place_order()
-            self.display_order_summary()
-            print("\nThank you for your order!")
-    
-    
-    if __name__ == "__main__":
-        shop = BeverageShop()
-        shop.run()
+if __name__ == "__main__":
+    shop = BeverageShop()
+    shop.run()
