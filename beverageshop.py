@@ -1,7 +1,13 @@
 class BeverageShop:
-    def __init__(self):
-      self.menu = self.load_menu()
-      self.order = []
+    def __init__(self, menu_file="beverage_menu.txt"):
+        """
+        Initializes the BeverageShop instance.
+
+        Parameters:
+        - menu_file (str): The file path to the menu txt file.
+        """
+        self.menu = self.load_menu(menu_file)
+        self.order = []
 
     def load_menu(self):
     # I added this menu to load the beverage_menu.txt file
