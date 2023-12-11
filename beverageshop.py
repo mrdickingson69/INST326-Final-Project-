@@ -20,38 +20,49 @@ class BeverageShop:
             for size, price in sizes.items():
                 print(f"  {size}: ${price:.2f}")
 
-    def get_customer_age(self):
-        # Get the customers age to see if they're above or below the age of 21
-        try:
-            age = int(input("Please enter your age for age verification: "))
-            return age
-        except ValueError:
-            print("Invalid input. Please enter a valid age.")
-            return self.get_customer_age()
-
-
     def place_order(self):
-        self.display_menu()
+        """
+        Allows the customer to place an order by selecting items from the menu.
+        Verifies age for alcoholic beverages.
+
+        Uses a conditional expression for age verification.
+        """
         while True:
-            beverage = input("\nEnter the name of the beverage you'd like to order (or 'done' to finish): ").capitalize()
-            if beverage == 'Done':
+            item = input("Enter the beverage you want to order. If it's an alcohol beverage, insert 'Alcohol' (type 'done' to finish): ")
+            if item.lower() == 'done':
                 break
-            elif beverage in self.menu:
-                size = input("Select size (Small, Medium, Large): ").capitalize()
-                if size not in self.menu[beverage]:
-                    print("Invalid size. Please choose a valid size.")
+            if item.lower() == 'alcohol':
+                age = int(input("Enter your age for age verification: "))
+                if age < 21:
+                    print("Sorry, you are not allowed to order alcoholic beverages.")
                     continue
-                quantity = int(input("Enter quantity: "))
-                self.order.append({'beverage': beverage, 'size': size, 'quantity': quantity})
+                else:
+                    print("Age verified.")
+                    alcohol_type = input("Do you want Wine or Beer? ").lower()
+                    if alcohol_type in ["wine", "beer"]:
+                        size = input("Enter the size (e.g., small, medium, large): ")
+                        quantity = int(input("Enter the quantity: "))
+                        self.order.append({"item": alcohol_type, "size": size, "quantity": quantity})
+                    else:
+                        print("Invalid alcohol type. Please choose either Wine or Beer.")
+                        continue
+            elif item in self.menu:
+                size = input("Enter the size (e.g., Small, Medium, Large): ")
+                quantity = int(input("Enter the quantity: "))
+                self.order.append({"item": item, "size": size, "quantity": quantity})
             else:
-                print("Invalid beverage. Please choose a beverage from the menu.")
+                print("Invalid beverage. Please choose from the menu.")
+
+
 
     def calculate_total(self):
-        total_cost = 0.0
-        for item in self.order:
-            beverage = item['beverage']
-            size = item['size']
-            quantity = item['quantity']
-            price = self.menu[beverage][size]
-            total_cost += price * quantity
+        """
+        Calculates the total cost of the customer's order.
+
+        Returns:
+        - float: The total cost of the order.
+
+        Uses a comprehension to calculate the total cost.
+        """
+        total_cost = sum(self.menu[item["item"].title()][item["size"]] * item["quantity"] for item in self.order)
         return total_cost
