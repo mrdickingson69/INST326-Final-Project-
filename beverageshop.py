@@ -72,3 +72,29 @@ class BeverageShop:
         """
         total_cost = sum(self.menu[item["item"].title()][item["size"]] * item["quantity"] for item in self.order)
         return total_cost
+
+    def display_order_summary(self):
+            """
+            Displays the order summary to the customer.
+            """
+            print("\nOrder Summary:\n")
+            for item in self.order:
+                print(f"{item['quantity']} {item['size']} {item['item']}")
+    
+            total_cost = self.calculate_total()
+            print(f"\nTotal Cost: ${total_cost:.2f}")
+    
+        def run(self):
+            """
+            Executes the beverage shop application.
+            """
+            print("Welcome to the Beverage Shop!")
+            self.display_menu()
+            self.place_order()
+            self.display_order_summary()
+            print("\nThank you for your order!")
+    
+    
+    if __name__ == "__main__":
+        shop = BeverageShop()
+        shop.run()
