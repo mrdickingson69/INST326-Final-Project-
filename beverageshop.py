@@ -1,17 +1,17 @@
 class BeverageShop:
     """
-    A program representing a beverage shop menu.
+    A program representing a beverage shop.
 
     Attributes:
-    - menu (dict): A dictionary representing the beverage menu with items, sizes, and prices.
-    - order (list): A list to store the customer's order.
+     - menu (dict): A dictionary representing the beverage menu with items, sizes, and prices.
+     - order (list): A list to store the customer's order.
     """
     def __init__(self, menu_file="beverage_menu.txt"):
         """
         Initializes the BeverageShop instance.
 
         Parameters:
-        - menu_file (str): The file path to the menu txt file.
+         - menu_file (str): The file path to the menu txt file.
         """
         self.menu = self.load_menu(menu_file)
         self.order = []
